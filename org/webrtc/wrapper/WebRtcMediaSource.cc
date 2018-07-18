@@ -14,38 +14,6 @@
 
 namespace Org {
 	namespace WebRtc {
-		void Org::WebRtc::FrameCounterHelper::FireEvent(String^ id,
-			Platform::String^ str) {
-			Windows::UI::Core::CoreDispatcher^ _windowDispatcher = webrtc::VideoCommonWinUWP::GetCoreDispatcher();
-			if (_windowDispatcher != nullptr) {
-				_windowDispatcher->RunAsync(
-					Windows::UI::Core::CoreDispatcherPriority::Normal,
-					ref new Windows::UI::Core::DispatchedHandler([id, str] {
-					FramesPerSecondChanged(id, str);
-				}));
-			} else {
-				FramesPerSecondChanged(id, str);
-			}
-		}
-
-		void Org::WebRtc::ResolutionHelper::FireEvent(String^ id,
-			unsigned int width, unsigned int heigth) {
-			Windows::UI::Core::CoreDispatcher^ _windowDispatcher = webrtc::VideoCommonWinUWP::GetCoreDispatcher();
-			if (_windowDispatcher != nullptr) {
-				_windowDispatcher->RunAsync(
-					Windows::UI::Core::CoreDispatcherPriority::Normal,
-					ref new Windows::UI::Core::DispatchedHandler([id, width, heigth] {
-					ResolutionChanged(id, width, heigth);
-				}));
-			} else {
-				ResolutionChanged(id, width, heigth);
-			}
-		}
-	}
-}
-
-namespace Org {
-	namespace WebRtc {
 		namespace Internal {
 			using Microsoft::WRL::MakeAndInitialize;
 
@@ -89,17 +57,19 @@ namespace Org {
 
 			HRESULT WebRtcMediaSource::CreateMediaSource(
 				WebRtcMediaSource** source,
+				Org::WebRtc::MediaVideoTrack^ track,
 				VideoFrameType frameType,
 				String^ id) {
 				*source = nullptr;
 				ComPtr<WebRtcMediaSource> comSource;
 				RETURN_ON_FAIL(MakeAndInitialize<WebRtcMediaSource>(
-					&comSource, frameType, id));
+					&comSource, track, frameType, id));
 				*source = comSource.Detach();
 				return S_OK;
 			}
 
 			HRESULT WebRtcMediaSource::RuntimeClassInitialize(
+				Org::WebRtc::MediaVideoTrack^ track,
 				VideoFrameType frameType, String^ id) {
 				rtc::CritScope lock(&_critSect);
 				if (_eventQueue != nullptr)
@@ -119,6 +89,8 @@ namespace Org {
 
 				_webRtcVideoSink.reset(new WebRtcVideoSink(
 					frameType, _i420Stream, _h264Stream, this));
+				_track = track;
+				_track->SetRenderer(_webRtcVideoSink.get());
 
 				ComPtr<IMFStreamDescriptor> i420StreamDescriptor;
 				ComPtr<IMFStreamDescriptor> h264streamDescriptor;

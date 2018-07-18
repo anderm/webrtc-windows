@@ -34,6 +34,8 @@
     <ClCompile Include="..\..\..\org\webrtc\wrapper\MediaSourceHelper.cc" />
     <ClCompile Include="..\..\..\org\webrtc\wrapper\PeerConnectionInterface.cc" />
     <ClCompile Include="..\..\..\org\webrtc\wrapper\RTMediaStreamSource.cc" />
+    <ClCompile Include="..\..\..\org\webrtc\wrapper\WebRtcMediaSource.cc" />
+    <ClCompile Include="..\..\..\org\webrtc\wrapper\WebRtcMediaStream.cc" />
     <ClCompile Include="..\..\..\org\webrtc\wrapper\WinUWPDeviceManager.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +48,8 @@
     <ClInclude Include="..\..\..\org\webrtc\wrapper\PeerConnectionInterface.h" />
     <ClInclude Include="..\..\..\org\webrtc\wrapper\RTCStatsReport.h" />
     <ClInclude Include="..\..\..\org\webrtc\wrapper\RTMediaStreamSource.h" />
+    <ClInclude Include="..\..\..\org\webrtc\wrapper\WebRtcMediaSource.h" />
+    <ClInclude Include="..\..\..\org\webrtc\wrapper\WebRtcMediaStream.h" />
     <ClInclude Include="..\..\..\org\webrtc\wrapper\WinUWPDeviceManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -64,8 +68,8 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
     <ApplicationType>Windows Store</ApplicationType>
     <ProjectName>Org.WebRtc.Uwp</ProjectName>
   </PropertyGroup>

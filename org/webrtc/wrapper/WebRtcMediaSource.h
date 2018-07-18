@@ -68,11 +68,13 @@ namespace Org {
 
 				static HRESULT CreateMediaSource(
 					WebRtcMediaSource** source,
-					VideoFrameType frameType, String^ id);
+					Org::WebRtc::MediaVideoTrack^ track,
+					VideoFrameType frameType, 
+					String^ id);
 
 				WebRtcMediaSource();
 				virtual ~WebRtcMediaSource();
-				HRESULT RuntimeClassInitialize(VideoFrameType frameType, String^ id);
+				HRESULT RuntimeClassInitialize(Org::WebRtc::MediaVideoTrack^ track, VideoFrameType frameType, String^ id);
 
 				// WebRtcVideoSinkObserver
 				virtual void OnVideoFormatChanged(VideoFrameType frameType) override;
@@ -117,6 +119,7 @@ namespace Org {
 				ComPtr<IMFMediaEventQueue> _eventQueue;
 				ComPtr<IMFPresentationDescriptor> _presDescriptor;
 				ComPtr<IMFDXGIDeviceManager> _deviceManager;
+				Org::WebRtc::MediaVideoTrack^ _track;
 				bool _i420FirstStart;
 				bool _h264FirstStart;
 				int _selectedStream;
